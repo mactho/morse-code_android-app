@@ -2,15 +2,16 @@ package com.mactho.sailormorse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 /**
  * Created by thomas on 13/05/17.
  */
-public class StringToMorseTransformer{
+public class StringToMorseTransformer {
 
     private HashMap<Character, String> characterCodes;
 
-    public StringToMorseTransformer(){
+    public StringToMorseTransformer() {
         characterCodes = new HashMap<>();
 
         // Add the alphabet to the map//
@@ -54,10 +55,10 @@ public class StringToMorseTransformer{
         characterCodes.put('0', "11111");
 
         // Add space character
-        characterCodes.put(' ', "_");
+        //characterCodes.put(' ', "_");
     }
 
-    private String convertChar( Character c ){
+    private String convertChar(Character c) {
         if (this.characterCodes.containsKey(Character.toLowerCase(c))) {
             return this.characterCodes.get(Character.toLowerCase(c));
         } else {
@@ -65,19 +66,30 @@ public class StringToMorseTransformer{
         }
     }
 
-    public String transform( String s ){
-        StringBuilder stringBuilder = new StringBuilder();
-        System.out.println(s.length());
+    private ArrayList<String> breakApartString(String s) {
+        StringTokenizer tokenizer = new StringTokenizer(s);
+        ArrayList<String> output = new ArrayList<>();
+        while (tokenizer.hasMoreTokens()) {
+            output.add(tokenizer.nextToken());
+        }
+        return output;
+    }
 
-        for(int counter = 0 ; counter < s.length() ; counter++){
-            String charCode = convertChar(s.charAt(counter));
-            stringBuilder.append(charCode);
-            if(counter < s.length() -1){
-                if(s.charAt(counter+1) != (' ') && s.charAt(counter) != (' ')) {
-                    stringBuilder.append('-');
+    public ArrayList<String> transform(String s) {
+        StringBuilder stringBuilder;
+        ArrayList<String> words = breakApartString(s);
+        ArrayList<String> morseCodes = new ArrayList<>();
+        for (String word : words) {
+            stringBuilder = new StringBuilder();
+            for (int counter = 0; counter < word.length(); counter++) {
+                stringBuilder.append(convertChar(word.charAt(counter)));
+                if (counter < word.length() - 1) {
+                    stringBuilder.append("-");
                 }
             }
+            morseCodes.add(stringBuilder.toString());
+            System.out.println(word);
         }
-        return stringBuilder.toString();
+        return morseCodes;
     }
 }
