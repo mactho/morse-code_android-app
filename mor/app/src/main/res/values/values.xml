@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="submit_button_label">Submit</string>
+    <string name="stop_button_label">Stop</string>
+    <string name="clear_button_label">Clear</string>
+    <string name="message_default">Type a message to send in morse code</string>
+    <string name="sos_default">Your message will be shown here is morse code</string>
+    <string name="repeat_label">Repeat</string>
+
+    <string-array name="quick_messages">
+        <item>Quick Selection</item>
+        <item>SOS</item>
+        <item>Hello</item>
+        <item>Call Me</item>
+        <item>Help</item>
+    </string-array>
+
+</resources>

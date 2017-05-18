@@ -12,6 +12,7 @@ public class CameraOperator implements Runnable {
 
     private int ditLength = 300;
     private ArrayList<String> message;
+    private boolean repeating = false;
 
     public CameraOperator(int ditLength) {
         this.ditLength = ditLength;
@@ -22,12 +23,11 @@ public class CameraOperator implements Runnable {
         this.message = message;
     }
 
+    /** This method does the actual manipulation of the camera flashing */
     @Override
     public void run() {
 
         Camera camera = Camera.open();
-        //Camera.Parameters params = camera.getParameters();
-        //camera.setParameters(params);
         camera.startPreview();
         for (String word : message) {
             for (int counter = 0; counter < word.length(); counter++) {
@@ -39,25 +39,31 @@ public class CameraOperator implements Runnable {
                     try{
                         Thread.sleep(dahLength() - getDitLength());
                     } catch( Exception e ){
-
+                        e.printStackTrace();
                     }
                 }
                 try {
                     Thread.sleep(getDitLength());
                 } catch( Exception e ){
-
+                    e.printStackTrace();
                 }
             }
             try{
                 Thread.sleep(breakLength());
             } catch( Exception e ){
-
+                e.printStackTrace();
             }
         }
         camera.stopPreview();
         camera.release();
+
+        // If repeat is on call run again until repeating is unchecked
+        if(isRepeating()){
+            run();
+        }
     }
 
+    /** Triggers the flash for the given amount of time */
     private void flash(Camera camera, int time){
         Camera.Parameters params = camera.getParameters();
         params.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
@@ -70,7 +76,6 @@ public class CameraOperator implements Runnable {
         }
         params.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
         camera.setParameters(params);
-        //camera.stopPreview();
     }
 
     private int dahLength() {
@@ -95,5 +100,13 @@ public class CameraOperator implements Runnable {
 
     public void setMessage(ArrayList<String> message) {
         this.message = message;
+    }
+
+    public boolean isRepeating() {
+        return repeating;
+    }
+
+    public void setRepeating(boolean repeating) {
+        this.repeating = repeating;
     }
 }

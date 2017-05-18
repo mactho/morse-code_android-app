@@ -15,16 +15,24 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
 
+        <Spinner android:id="@+id/quick_messsage"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:layout_marginBottom="15dp"
+                 android:entries="@array/quick_messages"/>
+
         <EditText android:id="@+id/message"
                   android:layout_width="match_parent"
                   android:layout_height="68dp"
+                  android:maxLength="20"
+                  android:hint="@string/message_default"
         />
 
-        <TextView
-                android:id="@+id/morse_viewer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Hello World!"/>
+        <TextView android:id="@+id/morse_viewer"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:minLines="5"
+                  android:text="@string/sos_default"/>
 
         <LinearLayout android:orientation="horizontal"
                       android:layout_width="match_parent"
@@ -33,20 +41,28 @@
             <Button android:id="@+id/send_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Send"
+                    android:text="@string/submit_button_label"
                     android:onClick="sendMessage"/>
+
+            <Button android:id="@+id/stop_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/stop_button_label"
+                    android:onClick="stopMessage"/>
 
             <Button android:id="@+id/clear_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Clear"
+                    android:text="@string/clear_button_label"
                     android:onClick="clearMessage"/>
 
         </LinearLayout>
 
         <CheckBox android:id="@+id/repeat_checkbox"
+                  android:text="@string/repeat_label"
                   android:layout_width="wrap_content"
                   android:layout_height="wrap_content"
+                  android:onClick="toggleRepeat"
         />
 
     </LinearLayout>
